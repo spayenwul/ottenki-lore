@@ -1,0 +1,240 @@
+{
+  "main": {
+    "id": "61cf3d0644d82cb0",
+    "type": "split",
+    "children": [
+      {
+        "id": "8c3f018920988707",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "cf9e52e045382dcd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Сюжет/Сессии/Рахат Маар шпрглк.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Рахат Маар шпрглк"
+            }
+          },
+          {
+            "id": "682c07202682232b",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Раскидать.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Раскидать"
+            }
+          },
+          {
+            "id": "0ada42447c4c86b2",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Сюжет/Сессии/Ветка Элизабет - Пробел Дракха (Далдок → Бал Пламени).md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Ветка Элизабет - Пробел Дракха (Далдок → Бал Пламени)"
+            }
+          }
+        ],
+        "currentTab": 2
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "ae7aa8cb197772b0",
+    "type": "split",
+    "children": [
+      {
+        "id": "8e39acc4d0d5c4b4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "bf054d3f104bad71",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Файловый менеджер"
+            }
+          },
+          {
+            "id": "9bc01035d7baff6e",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Поиск"
+            }
+          },
+          {
+            "id": "46daecbd5a4bf264",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "21bb5408699aac05",
+    "type": "split",
+    "children": [
+      {
+        "id": "ff9d0a3981a843e9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "618b1b457bb5bda3",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Теократия Бролез/Омовение предвестника.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Омовение предвестника"
+            }
+          },
+          {
+            "id": "0c0a3313a48dfc8f",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Теократия Бролез/Омовение предвестника.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Омовение предвестника"
+            }
+          },
+          {
+            "id": "ebe08399d1b107b1",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "897b0834cb56a9b1",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Теократия Бролез/Омовение предвестника.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Омовение предвестника"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Меню быстрого перехода": false,
+      "graph:Граф": false,
+      "canvas:Создать новый холст": false,
+      "daily-notes:Сегодняшняя заметка": false,
+      "templates:Вставить шаблон": false,
+      "command-palette:Открыть палитру команд": false,
+      "bases:Создать новую базу": false
+    }
+  },
+  "active": "0ada42447c4c86b2",
+  "lastOpenFiles": [
+    "Сюжет/Доклад Калеба.md",
+    "Локации/Элзия/Существо с минеральными когтями.md",
+    "Локации/Элзия/Собиратели сока.md",
+    "Локации/Элзия/Птицы-стражи.md",
+    "Локации/Элзия/Подземный левиафан.md",
+    "Локации/Элзия/Мёртвое дерево.md",
+    "Локации/Элзия/Мелкие кроновые птицы.md",
+    "Локации/Элзия/Доклад Калеба.md",
+    "Сюжет/Сущности Точки Ноль/Собиратели сока.md",
+    "Сюжет/Сущности Точки Ноль/Собиратели сока.md.tmp.25508.1771613762081",
+    "Сюжет/Сущности Точки Ноль/Мёртвое дерево.md",
+    "Сюжет/Сущности Точки Ноль/Мёртвое дерево.md.tmp.25508.1771613741946",
+    "Сюжет/Сущности Точки Ноль/Подземный левиафан.md",
+    "Сюжет/Сущности Точки Ноль/Подземный левиафан.md.tmp.25508.1771613720110",
+    "Сюжет/Сущности Точки Ноль/Существо с минеральными когтями.md",
+    "Сюжет/Сущности Точки Ноль/Существо с минеральными когтями.md.tmp.25508.1771613698695",
+    "Сюжет/Сущности Точки Ноль/Мелкие кроновые птицы.md",
+    "Сюжет/Сущности Точки Ноль/Мелкие кроновые птицы.md.tmp.25508.1771613676607",
+    "Сюжет/Сущности Точки Ноль/Птицы-стражи.md",
+    "Сюжет/Сущности Точки Ноль/Птицы-стражи.md.tmp.25508.1771613659237",
+    "Сюжет/Сущности Точки Ноль",
+    "Сюжет/Доклад Калеба.md.tmp.25508.1771612512424",
+    "Сюжет/Доклад Калеба.md.tmp.25508.1771612502068",
+    "Сюжет/Доклад Калеба.md.tmp.25508.1771612498414",
+    "Сюжет/Сессии/Ветка Элизабет - Пробел Дракха (Далдок → Бал Пламени).md",
+    "Локации/Элзия/Каменный Лес - Точка Ноль.md",
+    "Локации/Элзия/Каменный Лес - Биом и фауна.md",
+    "Лор/Школы магии/Графство Геун/Школа Запасника.md",
+    "Лор/Школы магии/Графство Геун/Школа Прыжка.md",
+    "Лор/Школы магии/Графство Йорлин/Школа Четырёх Рук.md",
+    "Лор/Школы магии/Графство Йорлин/Школа Паучьей Нити.md",
+    "Лор/Школы магии/Королевство Хакирия/Школа Золотого Рассвета.md",
+    "Лор/Школы магии/Королевство Хакирия/Школа Безмолвных Глубин.md",
+    "Лор/Школы магии/Империя Ареан/Школа Антидемонических Врат.md",
+    "Лор/Школы магии/Империя Ареан/Школа Стального Строя.md",
+    "Лор/Школы магии/Империя Ареан/Школа Железных Игл.md"
+  ]
+}
