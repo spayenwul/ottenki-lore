@@ -27,11 +27,16 @@ This is an Obsidian vault containing worldbuilding materials for a tabletop RPG 
   - `Гадальные карты.md` - Divination cards
   - `Сила (формулы).md` - Power formulas
 
+- **`Персонажи/`** - All named entities:
+  - `Игроки/` - Player characters (Агнейр, Эрр'Кин, Дракх'Мегас, Софина и Соннет)
+  - `НПС/` - NPCs from gods to villagers
+  - `Ведьмы/` - 18 witches anchored to concepts
+  - `Демоны/` - 18 individual demons + subfolders Дом Ра, Семья Венрас
+  - `Демоническая база легиона/` - Legion base "Яркий серпентарий" in the Rift
+  - `Расы/` - 11 races (Еналы, Мелеефаты, Айни, etc.)
+  - `Мифы/` - Mythology collections
+
 - **`Сюжет/`** - Plot materials, story arcs, and scenario concepts
-
-- **`НПС/`**, **`Игроки/`** - NPC and player character files
-
-- **`Расы/`**, **`Мифы/`**, **`Торсия/`**, **`Элзия/`**, **`Империя Ареан/`** - Location and race-specific lore
 
 ## Key World Concepts
 
@@ -49,6 +54,18 @@ This is an Obsidian vault containing worldbuilding materials for a tabletop RPG 
 - Many files contain YAML frontmatter for Obsidian metadata
 - Images are stored as `Pasted image YYYYMMDDHHMMSS.png` in root
 - The `.obsidian/` folder contains Obsidian configuration (do not modify)
+
+## TL;DR Files
+
+Every folder (except `0`-prefixed and hidden) contains a `TL;DR.md` — concise summary of that folder's unique content. Root `TL;DR.md` is the main entry point.
+
+Rules for working with TL;DR files:
+- **Before working with a folder** — read its `TL;DR.md` first to get context and understand what's unique/atypical there
+- **After modifying folder content** (adding, removing, or significantly changing files) — update the corresponding `TL;DR.md` to reflect the changes
+- **When creating a new folder** — create a `TL;DR.md` in it following the same format (one-line summary in `>` quote, "Уникальное" section, optional "Учитывать" section)
+- **When deleting a folder** — delete its `TL;DR.md` as well
+- **Format**: keep TL;DRs maximally concise; use wiki-links to reference key files; use tables for navigation in overview-level TL;DRs
+- **Do not** treat TL;DR files as source-of-truth for lore — they are navigational aids; always read the actual files for authoritative content
 
 ## Content Guidelines
 
