@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Карта Каменного леса</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1a1a2e;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  h1 {
+    color: #c4a35a;
+    margin-bottom: 5px;
+    font-size: 28px;
+    letter-spacing: 2px;
+  }
+  .subtitle {
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+  .map-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .main-map {
+    position: relative;
+  }
+  svg text { font-family: 'Segoe UI', Tahoma, sans-serif; }
+
+  /* Tooltip */
+  .tooltip {
+    position: fixed;
+    background: #16213e;
+    border: 1px solid #c4a35a;
+    border-radius: 6px;
+    padding: 10px 14px;
+    max-width: 320px;
+    font-size: 13px;
+    line-height: 1.5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  }
+  .tooltip.visible { opacity: 1; }
+  .tooltip h3 {
+    color: #c4a35a;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .tooltip .circle {
+    color: #e07040;
+    font-weight: bold;
+  }
+
+  /* Sidebar legend */
+  .sidebar {
+    background: #16213e;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 15px;
+    width: 300px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .sidebar h2 {
+    color: #c4a35a;
+    font-size: 16px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+  }
+  .sidebar h3 {
+    color: #8ab4f8;
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 3px;
+  }
+  .fauna-item {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin: 2px 0;
+  }
+  .fauna-circle {
+    color: #e07040;
+    font-weight: bold;
+    min-width: 30px;
+  }
+  .fauna-name { color: #ccc; }
+  .fauna-note { color: #777; font-size: 11px; }
+
+  .legend-color {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+
+  /* Inset map */
+  .inset-container {
+    margin-top: 15px;
+  }
+  .inset-title {
+    color: #c4a35a;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  /* Clickable markers */
+  .marker { cursor: pointer; }
+  .marker:hover circle, .marker:hover rect { filter: brightness(1.4); }
+
+  @media (max-width: 900px) {
+    .map-container { flex-direction: column; align-items: center; }
+    .sidebar { width: 90vw; }
+  }
+</style>
+</head>
+<body>
+
+<h1>КАМЕННЫЙ ЛЕС</h1>
+<p class="subtitle">Юго-восток Элзии &bull; ~400-800 км&sup2; &bull; 5 зон опасности</p>
+
+<div class="map-container">
+
+<!-- MAIN MAP SVG -->
+<div class="main-map">
+<svg width="520" height="920" viewBox="0 0 520 920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Zone gradients -->
+    <linearGradient id="zone1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4a6741"/>
+      <stop offset="100%" stop-color="#3d5a35"/>
+    </linearGradient>
+    <linearGradient id="zone2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d5a35"/>
+      <stop offset="100%" stop-color="#2e4a2a"/>
+    </linearGradient>
+    <linearGradient id="zone3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#2e4a2a"/>
+      <stop offset="100%" stop-color="#1f3520"/>
+    </linearGradient>
+    <linearGradient id="zone4" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f3520"/>
+      <stop offset="100%" stop-color="#152618"/>
+    </linearGradient>
+    <linearGradient id="zone5" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#152618"/>
+      <stop offset="100%" stop-color="#0d1a0f"/>
+    </linearGradient>
+    <linearGradient id="ocean" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#2a1520"/>
+    </linearGradient>
+
+    <!-- Tree symbols -->
+    <symbol id="tree-s" viewBox="0 0 10 14">
+      <line x1="5" y1="14" x2="5" y2="6" stroke="#5a7a50" stroke-width="1.5"/>
+      <circle cx="5" cy="5" r="4" fill="#3a5a32" opacity="0.7"/>
+    </symbol>
+    <symbol id="tree-m" viewBox="0 0 14 18">
+      <line x1="7" y1="18" x2="7" y2="7" stroke="#4a6a42" stroke-width="2"/>
+      <circle cx="7" cy="6" r="5.5" fill="#2a4a24" opacity="0.7"/>
+    </symbol>
+    <symbol id="tree-l" viewBox="0 0 20 24">
+      <line x1="10" y1="24" x2="10" y2="8" stroke="#3a5a34" stroke-width="3"/>
+      <circle cx="10" cy="7" r="7" fill="#1a3a18" opacity="0.7"/>
+    </symbol>
+
+    <!-- Marker glow -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- ==================== ZONES ==================== -->
+  <!-- Civilization area -->
+  <rect x="60" y="0" width="400" height="40" fill="#5a6a5a" opacity="0.5"/>
+  <text x="260" y="25" text-anchor="middle" fill="#aaa" font-size="12" font-style="italic">ВНУТРЕННИЕ ЗЕМЛИ ЭЛЗИИ (цивилизация)</text>
+
+  <!-- Zone I: Предлесье 0-2 km → y: 40-80 (40px = 2km, scale ~20px/km) -->
+  <rect x="60" y="40" width="400" height="40" fill="url(#zone1)" opacity="0.85"/>
+  <!-- Zone II: Окраина 2-8 km → y: 80-200 -->
+  <rect x="60" y="80" width="400" height="120" fill="url(#zone2)" opacity="0.85"/>
+  <!-- Zone III: Средний лес 8-20 km → y: 200-440 -->
+  <rect x="60" y="200" width="400" height="240" fill="url(#zone3)" opacity="0.85"/>
+  <!-- Zone IV: Пограничье 20-35 km → y: 440-740 -->
+  <rect x="60" y="440" width="400" height="300" fill="url(#zone4)" opacity="0.85"/>
+  <!-- Zone V: Глубина 35+ km → y: 740-860 -->
+  <rect x="60" y="740" width="400" height="120" fill="url(#zone5)" opacity="0.85"/>
+  <!-- Ocean -->
+  <rect x="60" y="860" width="400" height="60" fill="url(#ocean)" opacity="0.85"/>
+  <text x="260" y="895" text-anchor="middle" fill="#8a4a4a" font-size="12" font-style="italic">КРОВАВЫЙ ОКЕАН (~8-12 км от Точки Ноль)</text>
+
+  <!-- ==================== ZONE LABELS (left) ==================== -->
+  <text x="55" y="62" text-anchor="end" fill="#8aaa80" font-size="11" font-weight="bold">I</text>
+  <text x="55" y="145" text-anchor="end" fill="#7a9a72" font-size="11" font-weight="bold">II</text>
+  <text x="55" y="320" text-anchor="end" fill="#6a8a62" font-size="11" font-weight="bold">III</text>
+  <text x="55" y="590" text-anchor="end" fill="#5a7a54" font-size="11" font-weight="bold">IV</text>
+  <text x="55" y="790" text-anchor="end" fill="#4a6a46" font-size="11" font-weight="bold">V</text>
+
+  <!-- ==================== DISTANCE SCALE (left) ==================== -->
+  <line x1="25" y1="40" x2="25" y2="860" stroke="#555" stroke-width="1"/>
+  <!-- Ticks every 5 km -->
+  <line x1="20" y1="40" x2="30" y2="40" stroke="#777" stroke-width="1"/>
+  <text x="18" y="44" text-anchor="end" fill="#777" font-size="9">0</text>
+
+  <line x1="20" y1="140" x2="30" y2="140" stroke="#777" stroke-width="1"/>
+  <text x="18" y="144" text-anchor="end" fill="#777" font-size="9">5</text>
+
+  <line x1="20" y1="240" x2="30" y2="240" stroke="#777" stroke-width="1"/>
+  <text x="18" y="244" text-anchor="end" fill="#777" font-size="9">10</text>
+
+  <line x1="20" y1="340" x2="30" y2="340" stroke="#777" stroke-width="1"/>
+  <text x="18" y="344" text-anchor="end" fill="#777" font-size="9">15</text>
+
+  <line x1="20" y1="440" x2="30" y2="440" stroke="#777" stroke-width="1"/>
+  <text x="18" y="444" text-anchor="end" fill="#777" font-size="9">20</text>
+
+  <line x1="20" y1="540" x2="30" y2="540" stroke="#777" stroke-width="1"/>
+  <text x="18" y="544" text-anchor="end" fill="#777" font-size="9">25</text>
+
+  <line x1="20" y1="640" x2="30" y2="640" stroke="#777" stroke-width="1"/>
+  <text x="18" y="644" text-anchor="end" fill="#777" font-size="9">30</text>
+
+  <line x1="20" y1="740" x2="30" y2="740" stroke="#777" stroke-width="1"/>
+  <text x="18" y="744" text-anchor="end" fill="#777" font-size="9">35</text>
+
+  <line x1="20" y1="840" x2="30" y2="840" stroke="#777" stroke-width="1"/>
+  <text x="18" y="844" text-anchor="end" fill="#777" font-size="9">40</text>
+
+  <text x="12" y="450" text-anchor="middle" fill="#555" font-size="10" transform="rotate(-90, 12, 450)">ГЛУБИНА (км от опушки)</text>
+
+  <!-- ==================== ZONE BORDERS ==================== -->
+  <line x1="60" y1="40" x2="460" y2="40" stroke="#6a8a62" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="60" y1="80" x2="460" y2="80" stroke="#5a7a54" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="60" y1="200" x2="460" y2="200" stroke="#4a6a46" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="60" y1="440" x2="460" y2="440" stroke="#3a5a38" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+  <line x1="60" y1="740" x2="460" y2="740" stroke="#2a4a2a" stroke-width="1" stroke-dasharray="4,4" opacity="0.6"/>
+
+  <!-- ==================== ZONE INFO (right side) ==================== -->
+  <text x="465" y="62" fill="#8aaa80" font-size="10">Предлесье</text>
+  <text x="465" y="74" fill="#666" font-size="9">⊙ 1 круг</text>
+
+  <text x="465" y="110" fill="#7a9a72" font-size="10">Окраина</text>
+  <text x="465" y="122" fill="#666" font-size="9">⊙ 1-2 круг</text>
+  <text x="465" y="134" fill="#555" font-size="8">камнедревы 3-6 м</text>
+
+  <text x="465" y="260" fill="#6a8a62" font-size="10">Средний лес</text>
+  <text x="465" y="272" fill="#666" font-size="9">⊙ 2-4 круг</text>
+  <text x="465" y="284" fill="#555" font-size="8">голая земля</text>
+  <text x="465" y="296" fill="#555" font-size="8">чувство слежки</text>
+
+  <text x="465" y="530" fill="#5a7a54" font-size="10">Пограничье</text>
+  <text x="465" y="542" fill="#666" font-size="9">⊙ 4-5 круг</text>
+  <text x="465" y="554" fill="#555" font-size="8">тяжёлый воздух</text>
+  <text x="465" y="566" fill="#555" font-size="8">ночью — тьма</text>
+
+  <text x="465" y="770" fill="#4a6a46" font-size="10">Глубина</text>
+  <text x="465" y="782" fill="#666" font-size="9">⊙ 5-6 круг</text>
+  <text x="465" y="794" fill="#555" font-size="8">камнедревы-соборы</text>
+  <text x="465" y="806" fill="#555" font-size="8">6-12 м диаметр</text>
+
+  <!-- ==================== SCATTERED TREES ==================== -->
+  <!-- Zone I: small trees -->
+  <use href="#tree-s" x="100" y="42" width="8" height="11"/>
+  <use href="#tree-s" x="160" y="46" width="8" height="11"/>
+  <use href="#tree-s" x="220" y="44" width="8" height="11"/>
+  <use href="#tree-s" x="300" y="48" width="8" height="11"/>
+  <use href="#tree-s" x="370" y="42" width="8" height="11"/>
+  <use href="#tree-s" x="420" y="46" width="8" height="11"/>
+
+  <!-- Zone II: medium trees -->
+  <use href="#tree-m" x="90" y="85" width="11" height="14"/>
+  <use href="#tree-m" x="150" y="100" width="11" height="14"/>
+  <use href="#tree-m" x="230" y="90" width="11" height="14"/>
+  <use href="#tree-m" x="310" y="105" width="11" height="14"/>
+  <use href="#tree-m" x="380" y="88" width="11" height="14"/>
+  <use href="#tree-m" x="130" y="145" width="11" height="14"/>
+  <use href="#tree-m" x="200" y="160" width="11" height="14"/>
+  <use href="#tree-m" x="350" y="155" width="11" height="14"/>
+  <use href="#tree-m" x="420" y="140" width="11" height="14"/>
+
+  <!-- Zone III: bigger trees -->
+  <use href="#tree-m" x="100" y="210" width="13" height="16"/>
+  <use href="#tree-m" x="180" y="230" width="13" height="16"/>
+  <use href="#tree-m" x="280" y="215" width="13" height="16"/>
+  <use href="#tree-m" x="370" y="240" width="13" height="16"/>
+  <use href="#tree-m" x="420" y="220" width="13" height="16"/>
+  <use href="#tree-l" x="130" y="300" width="16" height="20"/>
+  <use href="#tree-l" x="250" y="310" width="16" height="20"/>
+  <use href="#tree-l" x="350" y="295" width="16" height="20"/>
+  <use href="#tree-l" x="110" y="380" width="16" height="20"/>
+  <use href="#tree-l" x="200" y="390" width="16" height="20"/>
+  <use href="#tree-l" x="330" y="375" width="16" height="20"/>
+  <use href="#tree-l" x="430" y="385" width="16" height="20"/>
+
+  <!-- Zone IV: large trees -->
+  <use href="#tree-l" x="90" y="460" width="18" height="22"/>
+  <use href="#tree-l" x="170" y="480" width="18" height="22"/>
+  <use href="#tree-l" x="290" y="465" width="18" height="22"/>
+  <use href="#tree-l" x="400" y="470" width="18" height="22"/>
+  <use href="#tree-l" x="130" y="550" width="18" height="22"/>
+  <use href="#tree-l" x="240" y="560" width="18" height="22"/>
+  <use href="#tree-l" x="360" y="545" width="18" height="22"/>
+  <use href="#tree-l" x="100" y="640" width="20" height="24"/>
+  <use href="#tree-l" x="200" y="650" width="20" height="24"/>
+  <use href="#tree-l" x="320" y="635" width="20" height="24"/>
+  <use href="#tree-l" x="420" y="645" width="20" height="24"/>
+  <use href="#tree-l" x="160" y="700" width="20" height="24"/>
+  <use href="#tree-l" x="280" y="710" width="20" height="24"/>
+  <use href="#tree-l" x="380" y="695" width="20" height="24"/>
+
+  <!-- Zone V: giant trees -->
+  <use href="#tree-l" x="90" y="750" width="22" height="26"/>
+  <use href="#tree-l" x="190" y="760" width="22" height="26"/>
+  <use href="#tree-l" x="300" y="755" width="22" height="26"/>
+  <use href="#tree-l" x="400" y="765" width="22" height="26"/>
+  <use href="#tree-l" x="140" y="810" width="22" height="26"/>
+  <use href="#tree-l" x="350" y="820" width="22" height="26"/>
+
+  <!-- ==================== PROSEKA (path to Каменоломня) ==================== -->
+  <line x1="260" y1="40" x2="260" y2="100" stroke="#8a7a5a" stroke-width="3" stroke-dasharray="6,3" opacity="0.5"/>
+  <text x="275" y="70" fill="#8a7a5a" font-size="9" opacity="0.7">просека</text>
+
+  <!-- ==================== KEY LOCATIONS ==================== -->
+
+  <!-- 1. Каменоломня Врат (~3 km = y:100) -->
+  <g class="marker" data-name="Каменоломня Врат" data-info="~3 км от опушки. Заброшенная каменоломня времён Врат Жизни (~115 лет назад). Штабель ~40 каменных плит, руина бараков, столб с руной Делир. Заготовители приходят раз в 7-10 дней. Свежие следы рубки.">
+    <rect x="240" y="95" width="40" height="14" rx="3" fill="#8a6a30" opacity="0.9"/>
+    <text x="260" y="105" text-anchor="middle" fill="#fff" font-size="8" font-weight="bold">⛏</text>
+    <text x="290" y="105" fill="#c4a35a" font-size="10" font-weight="bold">Каменоломня Врат</text>
+  </g>
+
+  <!-- 2. Братская могила (~7-8 km = y:180) -->
+  <g class="marker" data-name="Братская могила" data-info="~7-8 км от опушки. 200-300 рабочих, погибших при строительстве Врат. Корневой Левиафан врос в захоронение. Аномально быстро выросшее дерево. Теневой Страж (5 круг) тяготеет к месту.">
+    <circle cx="180" cy="180" r="6" fill="#5a3a5a" stroke="#8a5a8a" stroke-width="1.5"/>
+    <text x="195" y="184" fill="#8a6a8a" font-size="10">Братская могила</text>
+  </g>
+
+  <!-- 3. Руины Залидского стана (~9 km = y:220) -->
+  <g class="marker" data-name="Руины Залидского стана" data-info="~9 км от опушки. 500-600 лет. Три стены из живого самана. Керамическая табличка с охотничьей картой: граница опасной зоны 500 лет назад была на 5 км ближе — лес растёт. Четыре места силы отмечены.">
+    <rect x="320" y="215" width="12" height="12" rx="2" fill="none" stroke="#8a8a5a" stroke-width="1.5"/>
+    <text x="340" y="226" fill="#8a8a5a" font-size="10">Руины Залидского стана</text>
+  </g>
+
+  <!-- 4. Счётные Камни Кар'Зена (~12 km = y:280) -->
+  <g class="marker" data-name="Счётные Камни Кар'Зена" data-info="~12 км от опушки. Площадка для подсчёта жертв (~390 лет назад). 50 камней (2×25), стела с формулой. Демоническая тень Кар'Зена отпугивает птиц — единственная безопасная зона в среднем лесу. Следователи Эш'Нары застряли здесь.">
+    <polygon points="200,270 206,280 194,280" fill="#7a5a3a" stroke="#aa8a5a" stroke-width="1.5"/>
+    <text x="215" y="280" fill="#aa8a5a" font-size="10" font-weight="bold">Счётные Камни Кар'Зена</text>
+  </g>
+
+  <!-- 5. Беглецы из Красной Гавани (~10-11 km = y:250) -->
+  <g class="marker" data-name="Беглецы" data-info="~10-11 км от опушки. Семья с детьми, бежавшая из Красной Гавани. Застряли в среднем лесу, в нескольких км от Счётных Камней.">
+    <circle cx="140" cy="250" r="4" fill="#aa5a3a" stroke="#cc7a5a" stroke-width="1"/>
+    <text x="152" y="254" fill="#aa7a5a" font-size="9">беглецы</text>
+  </g>
+
+  <!-- 6. Следователи Эш'Нары (~12 km = y:280) -->
+  <g class="marker" data-name="Следователи Эш'Нары" data-info="Трое следователей. Один ранен. Застряли у Счётных Камней (~12 км). Идут вглубь.">
+    <circle cx="180" cy="285" r="3" fill="#5a7aaa" stroke="#7a9acc" stroke-width="1"/>
+    <text x="158" y="296" fill="#7a9acc" font-size="9">следователи</text>
+  </g>
+
+  <!-- ==================== ТОЧКА НОЛЬ (~30-32 km = y:650) ==================== -->
+  <g class="marker" data-name="ТОЧКА НОЛЬ — База Эрр'Кина" data-info="~30-32 км от опушки, граница Зон IV/V. Камнедрев-основание: Ø9 м, h=32-35 м. Три корневых ниши. Вырублена одна камера 4×3 м. Загон для 6 землегривов. Инкубатор. Подземный гул по ночам (ритм ~40-50 сек, с юга).">
+    <circle cx="260" cy="650" r="12" fill="none" stroke="#e04040" stroke-width="2.5" filter="url(#glow)"/>
+    <circle cx="260" cy="650" r="4" fill="#e04040"/>
+    <text x="260" y="634" text-anchor="middle" fill="#e04040" font-size="12" font-weight="bold">★ ТОЧКА НОЛЬ</text>
+    <text x="260" y="672" text-anchor="middle" fill="#cc6060" font-size="9">база Эрр'Кина</text>
+  </g>
+
+  <!-- Objects around Точка Ноль -->
+  <!-- Мёртвое дерево: 400m east -->
+  <g class="marker" data-name="Мёртвое дерево" data-info="400 м к востоку. Всё живое избегает. Путь к морю закрыт. Природа неизвестна.">
+    <circle cx="300" cy="645" r="4" fill="#4a4a4a" stroke="#7a7a7a" stroke-width="1"/>
+    <text x="310" y="649" fill="#7a7a7a" font-size="8">мёртвое дерево</text>
+  </g>
+
+  <!-- Собиратели сока: 700m west -->
+  <g class="marker" data-name="Собиратели сока" data-info="700 м к западу. Рана на дереве. Следы неизвестных существ — собирают сок.">
+    <circle cx="200" cy="655" r="3" fill="#6a3a3a" stroke="#aa5a5a" stroke-width="1"/>
+    <text x="170" y="668" fill="#8a5a5a" font-size="8">собиратели сока</text>
+  </g>
+
+  <!-- Апексий патруль: 800m NW -->
+  <g class="marker" data-name="Патруль апексов" data-info="800 м к СЗ. 3 птицы. Фиксированный маршрут каждые 4-6 часов. 5 круг.">
+    <text x="198" y="618" fill="#6a8a6a" font-size="14">🦅</text>
+    <text x="173" y="610" fill="#6a8a6a" font-size="8">патруль (×3)</text>
+  </g>
+
+  <!-- Червоточина: 600m SE -->
+  <g class="marker" data-name="Червоточина" data-info="600 м к ЮВ. «Дышащая» полоса земли. След Червя-Великана (5 круг) или Корневого Левиафана (6 круг).">
+    <ellipse cx="300" cy="670" rx="12" ry="4" fill="none" stroke="#5a7a5a" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="318" y="674" fill="#5a7a5a" font-size="8">червоточина</text>
+  </g>
+
+  <!-- Корневой курган: 1km SE -->
+  <g class="marker" data-name="Корневой курган" data-info="1 км к ЮВ. Поверхностное проявление Корневого Левиафана (6 круг). Земля поднимается и опускается.">
+    <path d="M310,695 Q320,685 330,695" fill="none" stroke="#5a6a4a" stroke-width="1.5"/>
+    <text x="338" y="695" fill="#5a6a4a" font-size="8">курган</text>
+  </g>
+
+  <!-- Неизвестные следы: 900m NE -->
+  <g class="marker" data-name="Неизвестные следы" data-info="900 м к СВ. Существо с минеральными когтями. Не идентифицировано. Возможно, родственник землегривов?">
+    <text x="335" y="630" fill="#8a6a4a" font-size="8">? следы когтей</text>
+    <circle cx="325" cy="627" r="3" fill="none" stroke="#8a6a4a" stroke-width="1" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- Тень в кронах: 1.8km SW -->
+  <g class="marker" data-name="Тень в кронах" data-info="1.8 км к ЮЗ. Видена однажды. Апекс-Старейшина (5+ круг) или Каменный Феникс (6 круг)?">
+    <text x="145" y="700" fill="#5a5a6a" font-size="8">тень в кронах</text>
+    <circle cx="178" cy="697" r="3" fill="none" stroke="#5a5a7a" stroke-width="1" stroke-dasharray="2,2"/>
+  </g>
+
+  <!-- Просвет → к морю: 1.2km E -->
+  <g class="marker" data-name="Просвет в кронах" data-info="1.2 км к востоку. Через просвет виден берег. ~8-10 км до Кровавого Океана.">
+    <line x1="340" y1="650" x2="360" y2="650" stroke="#5a6a8a" stroke-width="1" stroke-dasharray="3,2"/>
+    <text x="365" y="654" fill="#5a6a8a" font-size="8">→ берег (8-10 км)</text>
+  </g>
+
+  <!-- ==================== FAUNA ZONE INDICATORS ==================== -->
+  <!-- Zone I-II fauna strip -->
+  <rect x="62" y="42" width="4" height="76" fill="#7aaa70" rx="2" opacity="0.6"/>
+  <text x="72" y="55" fill="#7aaa70" font-size="8">щёлкуны, сокодробы</text>
+  <text x="72" y="65" fill="#7aaa70" font-size="8">тати, пауки, слизни</text>
+
+  <!-- Zone II-III fauna strip -->
+  <rect x="62" y="120" width="4" height="80" fill="#aa9a50" rx="2" opacity="0.6"/>
+  <text x="72" y="140" fill="#aa9a50" font-size="8">скрытни, камнекрылы</text>
+  <text x="72" y="150" fill="#aa9a50" font-size="8">скорпионы</text>
+
+  <!-- Zone III fauna strip -->
+  <rect x="62" y="200" width="4" height="240" fill="#cc7a40" rx="2" opacity="0.6"/>
+  <text x="72" y="340" fill="#cc7a40" font-size="8">резаки, шептуны</text>
+  <text x="72" y="350" fill="#cc7a40" font-size="8">певец-убийца</text>
+  <text x="72" y="360" fill="#cc7a40" font-size="8">каменные рыси</text>
+  <text x="72" y="370" fill="#cc7a40" font-size="8">чернокорые обезьяны</text>
+
+  <!-- Zone IV-V fauna strip -->
+  <rect x="62" y="440" width="4" height="420" fill="#cc4040" rx="2" opacity="0.6"/>
+  <text x="72" y="500" fill="#cc5050" font-size="8">скальные кондоры</text>
+  <text x="72" y="510" fill="#cc5050" font-size="8">ночные стрелки</text>
+  <text x="72" y="520" fill="#cc5050" font-size="8">элементали</text>
+  <text x="72" y="760" fill="#cc3030" font-size="8">АПЕКСЫ (5 круг)</text>
+  <text x="72" y="770" fill="#cc3030" font-size="8">Старейшины (5+)</text>
+  <text x="72" y="780" fill="#cc3030" font-size="8">Червь-Великан (5)</text>
+  <text x="72" y="800" fill="#aa2020" font-size="8" font-weight="bold">ФЕНИКС (6)</text>
+  <text x="72" y="810" fill="#aa2020" font-size="8" font-weight="bold">ЛЕВИАФАН (6)</text>
+
+  <!-- ==================== COMPASS ==================== -->
+  <g transform="translate(480, 900)">
+    <text x="0" y="-15" text-anchor="middle" fill="#888" font-size="10">СЗ ↑</text>
+    <text x="0" y="10" text-anchor="middle" fill="#888" font-size="10">ЮВ ↓</text>
+  </g>
+
+  <!-- Border -->
+  <rect x="60" y="40" width="400" height="820" fill="none" stroke="#333" stroke-width="1"/>
+</svg>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>Условные обозначения</h2>
+
+  <div style="margin-bottom:10px;">
+    <span class="legend-color" style="background:#4a6741;"></span> Зона I — Предлесье (0-2 км)<br>
+    <span class="legend-color" style="background:#3d5a35;"></span> Зона II — Окраина (2-8 км)<br>
+    <span class="legend-color" style="background:#2e4a2a;"></span> Зона III — Средний лес (8-20 км)<br>
+    <span class="legend-color" style="background:#1f3520;"></span> Зона IV — Пограничье (20-35 км)<br>
+    <span class="legend-color" style="background:#152618;"></span> Зона V — Глубина (35+ км)<br>
+  </div>
+
+  <h2>Пищевая цепь</h2>
+  <div style="color:#888; margin-bottom:8px; font-size:11px;">
+    Почва (кальциты, силикаты) → Камнедревы → Черви-симбионты → Птицы-хищники
+  </div>
+
+  <h2>Камнедревы по зонам</h2>
+  <table style="width:100%; font-size:11px; border-collapse:collapse; margin-bottom:10px;">
+    <tr style="border-bottom:1px solid #333;">
+      <td style="color:#888;">Зона</td><td style="color:#888;">Ø</td><td style="color:#888;">Высота</td><td style="color:#888;">Кора</td>
+    </tr>
+    <tr><td>I-II</td><td>1-6 м</td><td>10-25 м</td><td>5-30 см</td></tr>
+    <tr><td>III</td><td>3-6 м</td><td>15-25 м</td><td>15-40 см</td></tr>
+    <tr><td>IV-V</td><td>6-12 м</td><td>25-40 м</td><td>40+ см</td></tr>
+  </table>
+
+  <h2>Иерархия птиц</h2>
+
+  <h3>Зоны I-II (1-2 круг)</h3>
+  <div class="fauna-item"><span class="fauna-circle">①</span><span class="fauna-name">Щёлкуны</span><span class="fauna-note">— сигнальные</span></div>
+  <div class="fauna-item"><span class="fauna-circle">①</span><span class="fauna-name">Сокодробы</span><span class="fauna-note">— индикаторы</span></div>
+  <div class="fauna-item"><span class="fauna-circle">①</span><span class="fauna-name">Красногрудые тати</span><span class="fauna-note">— чуют кровь</span></div>
+  <div class="fauna-item"><span class="fauna-circle">②</span><span class="fauna-name">Скрытни</span><span class="fauna-note">— камуфляж</span></div>
+  <div class="fauna-item"><span class="fauna-circle">②</span><span class="fauna-name">Камнекрылы</span><span class="fauna-note">— крылья-лезвия</span></div>
+
+  <h3>Зона III (2-4 круг)</h3>
+  <div class="fauna-item"><span class="fauna-circle">②③</span><span class="fauna-name">Резаки</span><span class="fauna-note">— тихий пикирующий удар</span></div>
+  <div class="fauna-item"><span class="fauna-circle">③</span><span class="fauna-name">Шептуны</span><span class="fauna-note">— инфразвук</span></div>
+  <div class="fauna-item"><span class="fauna-circle">③</span><span class="fauna-name">Парные охотники</span><span class="fauna-note">— вспышка+удар</span></div>
+  <div class="fauna-item"><span class="fauna-circle">③④</span><span class="fauna-name">Когтедробы</span><span class="fauna-note">— ударная волна</span></div>
+  <div class="fauna-item"><span class="fauna-circle">④</span><span class="fauna-name">Певец-убийца</span><span class="fauna-note">— петрификация пением</span></div>
+
+  <h3>Зоны IV-V (4-6 круг)</h3>
+  <div class="fauna-item"><span class="fauna-circle">④</span><span class="fauna-name">Скальный кондор</span><span class="fauna-note">— гравитация ×3</span></div>
+  <div class="fauna-item"><span class="fauna-circle">④⑤</span><span class="fauna-name">Ночные стрелки</span><span class="fauna-note">— абсолютная тьма</span></div>
+  <div class="fauna-item"><span class="fauna-circle">⑤</span><span class="fauna-name">Апексы</span><span class="fauna-note">— телепатия, каменное перо</span></div>
+  <div class="fauna-item"><span class="fauna-circle">⑤+</span><span class="fauna-name">Апекс-Старейшина</span><span class="fauna-note">— разумный, молния</span></div>
+  <div class="fauna-item"><span class="fauna-circle">⑥</span><span class="fauna-name" style="color:#e04040;">Каменный Феникс</span><span class="fauna-note">— один на весь лес</span></div>
+
+  <h3>Наземные / подземные</h3>
+  <div class="fauna-item"><span class="fauna-circle">②</span><span class="fauna-name">Мин. скорпионы</span><span class="fauna-note">— яд каменения</span></div>
+  <div class="fauna-item"><span class="fauna-circle">③</span><span class="fauna-name">Каменные рыси</span><span class="fauna-note">— засада из ствола</span></div>
+  <div class="fauna-item"><span class="fauna-circle">③</span><span class="fauna-name">Чернокорые обезьяны</span><span class="fauna-note">— кислотный сок</span></div>
+  <div class="fauna-item"><span class="fauna-circle">④</span><span class="fauna-name">Мин. элементаль</span><span class="fauna-note">— поглощает металл</span></div>
+  <div class="fauna-item"><span class="fauna-circle">⑤</span><span class="fauna-name">Червь-Великан</span><span class="fauna-note">— управляет корнями</span></div>
+  <div class="fauna-item"><span class="fauna-circle">⑤</span><span class="fauna-name">Теневой Страж</span><span class="fauna-note">— стирает память</span></div>
+  <div class="fauna-item"><span class="fauna-circle">⑥</span><span class="fauna-name" style="color:#e04040;">Корневой Левиафан</span><span class="fauna-note">— он и есть лес</span></div>
+
+  <h2 style="margin-top:15px;">Ключевые расстояния</h2>
+  <div style="font-size:11px; color:#aaa;">
+    Опушка → Каменоломня: <b>~3 км</b><br>
+    Опушка → Братская могила: <b>~7-8 км</b><br>
+    Опушка → Руины Залидов: <b>~9 км</b><br>
+    Опушка → Счётные Камни: <b>~12 км</b><br>
+    Опушка → Точка Ноль: <b>~30-32 км</b><br>
+    Точка Ноль → Берег: <b>~8-12 км</b><br>
+    Точка Ноль → Патруль апексов: <b>800 м</b><br>
+  </div>
+</div>
+
+</div><!-- /map-container -->
+
+<!-- INSET MAP: Точка Ноль vicinity -->
+<div class="inset-container">
+  <div class="inset-title">ТОЧКА НОЛЬ — ближайшее окружение (радиус 2 км)</div>
+  <svg width="440" height="440" viewBox="0 0 440 440" xmlns="http://www.w3.org/2000/svg">
+    <!-- Background -->
+    <rect width="440" height="440" fill="#0d1a0f" rx="8"/>
+
+    <!-- Distance rings -->
+    <circle cx="220" cy="220" r="180" fill="none" stroke="#2a3a2a" stroke-width="1" stroke-dasharray="4,4"/>
+    <text x="220" y="38" text-anchor="middle" fill="#3a4a3a" font-size="9">2 км</text>
+    <circle cx="220" cy="220" r="135" fill="none" stroke="#2a3a2a" stroke-width="0.5" stroke-dasharray="3,3"/>
+    <text x="220" y="83" text-anchor="middle" fill="#2a3a2a" font-size="8">1.5 км</text>
+    <circle cx="220" cy="220" r="90" fill="none" stroke="#2a3a2a" stroke-width="0.5" stroke-dasharray="3,3"/>
+    <text x="220" y="128" text-anchor="middle" fill="#2a3a2a" font-size="8">1 км</text>
+    <circle cx="220" cy="220" r="45" fill="none" stroke="#2a3a2a" stroke-width="0.5" stroke-dasharray="3,3"/>
+    <text x="220" y="173" text-anchor="middle" fill="#2a3a2a" font-size="8">500 м</text>
+
+    <!-- Compass -->
+    <text x="220" y="15" text-anchor="middle" fill="#666" font-size="10">СЗ (к опушке)</text>
+    <text x="220" y="435" text-anchor="middle" fill="#666" font-size="10">ЮВ (к океану)</text>
+    <text x="10" y="224" fill="#666" font-size="10">ЮЗ</text>
+    <text x="415" y="224" fill="#666" font-size="10" text-anchor="end">СВ</text>
+
+    <!-- Scattered giant trees -->
+    <use href="#tree-l" x="100" y="80" width="20" height="24"/>
+    <use href="#tree-l" x="310" y="100" width="20" height="24"/>
+    <use href="#tree-l" x="80" y="200" width="22" height="26"/>
+    <use href="#tree-l" x="340" y="180" width="20" height="24"/>
+    <use href="#tree-l" x="120" y="320" width="22" height="26"/>
+    <use href="#tree-l" x="320" y="300" width="20" height="24"/>
+    <use href="#tree-l" x="160" y="140" width="20" height="24"/>
+    <use href="#tree-l" x="280" y="350" width="20" height="24"/>
+    <use href="#tree-l" x="70" y="360" width="20" height="24"/>
+    <use href="#tree-l" x="370" y="340" width="20" height="24"/>
+
+    <!-- ★ ТОЧКА НОЛЬ (center) -->
+    <circle cx="220" cy="220" r="14" fill="#2a1515" stroke="#e04040" stroke-width="2"/>
+    <circle cx="220" cy="220" r="5" fill="#e04040"/>
+    <text x="220" y="246" text-anchor="middle" fill="#e04040" font-size="10" font-weight="bold">БАЗА</text>
+    <text x="220" y="257" text-anchor="middle" fill="#cc6060" font-size="8">камнедрев Ø9 м</text>
+
+    <!-- Загон для землегривов (рядом с базой) -->
+    <rect x="235" y="215" width="18" height="12" rx="2" fill="none" stroke="#8a7a4a" stroke-width="1"/>
+    <text x="258" y="224" fill="#8a7a4a" font-size="7">загон (×6)</text>
+
+    <!-- Мёртвое дерево: 400m E → 36px offset -->
+    <g class="marker" data-name="Мёртвое дерево" data-info="400 м к востоку. Всё живое обходит стороной. Путь к морю закрыт через него.">
+      <circle cx="256" cy="216" r="7" fill="#2a2a2a" stroke="#5a5a5a" stroke-width="1.5"/>
+      <text x="256" y="219" text-anchor="middle" fill="#7a7a7a" font-size="8">☠</text>
+      <text x="270" y="207" fill="#7a7a7a" font-size="9">Мёртвое дерево</text>
+    </g>
+
+    <!-- Собиратели сока: 700m W → 63px -->
+    <g class="marker" data-name="Собиратели сока" data-info="700 м к западу. Раны на стволе дерева. Следы неизвестных существ, собирающих сок.">
+      <circle cx="157" cy="225" r="5" fill="#5a2a2a" stroke="#8a4a4a" stroke-width="1"/>
+      <text x="157" y="240" text-anchor="middle" fill="#8a5a5a" font-size="9">Собиратели</text>
+    </g>
+
+    <!-- Апексий патруль: 800m NW → 72px -->
+    <g class="marker" data-name="Патруль апексов" data-info="800 м к СЗ. 3 апекса (5 круг). Фиксированный маршрут, обход каждые 4-6 часов.">
+      <circle cx="169" cy="168" r="6" fill="none" stroke="#6a8a6a" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="169" y="171" text-anchor="middle" fill="#6a8a6a" font-size="10">🦅</text>
+      <text x="169" y="158" text-anchor="middle" fill="#6a8a6a" font-size="9">Патруль ×3</text>
+    </g>
+
+    <!-- Червоточина: 600m SE → 54px -->
+    <g class="marker" data-name="Червоточина" data-info="600 м к ЮВ. «Дышащая» полоса земли — поднимается и опускается. След Червя-Великана или Левиафана.">
+      <ellipse cx="258" cy="268" rx="16" ry="5" fill="none" stroke="#5a7a5a" stroke-width="1.5" stroke-dasharray="4,2"/>
+      <text x="258" y="285" text-anchor="middle" fill="#5a7a5a" font-size="9">Червоточина</text>
+    </g>
+
+    <!-- Корневой курган: 1km SE → 90px -->
+    <g class="marker" data-name="Корневой курган" data-info="1 км к ЮВ. Поверхностное проявление Корневого Левиафана (6 круг). Земля «дышит».">
+      <path d="M278,308 Q290,292 302,308" fill="none" stroke="#4a6a3a" stroke-width="2"/>
+      <text x="290" y="320" text-anchor="middle" fill="#4a6a3a" font-size="9">Курган</text>
+      <text x="290" y="330" text-anchor="middle" fill="#3a5a2a" font-size="7">Левиафан?</text>
+    </g>
+
+    <!-- Просвет в кронах: 1.2km E → 108px -->
+    <g class="marker" data-name="Просвет в кронах" data-info="1.2 км к востоку. Через просвет видно берег Кровавого Океана (~8-10 км).">
+      <ellipse cx="328" cy="215" rx="10" ry="14" fill="#1a2a3a" stroke="#4a6a8a" stroke-width="1"/>
+      <text x="328" y="205" text-anchor="middle" fill="#5a7a9a" font-size="8">просвет</text>
+      <text x="345" y="218" fill="#4a6a8a" font-size="7">→ берег</text>
+    </g>
+
+    <!-- Следы когтей: 900m NE → 81px -->
+    <g class="marker" data-name="Следы минеральных когтей" data-info="900 м к СВ. Существо с минеральными когтями. Не идентифицировано. Родственник землегривов?">
+      <circle cx="284" cy="157" r="6" fill="none" stroke="#aa8a4a" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="284" y="160" text-anchor="middle" fill="#aa8a4a" font-size="8">?</text>
+      <text x="284" y="148" text-anchor="middle" fill="#aa8a4a" font-size="8">Следы когтей</text>
+    </g>
+
+    <!-- Тень в кронах: 1.8km SW → 162px -->
+    <g class="marker" data-name="Тень в кронах" data-info="1.8 км к ЮЗ. Видена однажды. Огромная тень — Апекс-Старейшина (5+) или Каменный Феникс (6 круг)?">
+      <circle cx="105" cy="335" r="8" fill="none" stroke="#4a4a6a" stroke-width="1" stroke-dasharray="4,3"/>
+      <text x="105" y="338" text-anchor="middle" fill="#6a6a8a" font-size="10">👁</text>
+      <text x="105" y="350" text-anchor="middle" fill="#5a5a7a" font-size="8">Тень</text>
+      <text x="105" y="360" text-anchor="middle" fill="#4a4a6a" font-size="7">Феникс?</text>
+    </g>
+
+    <!-- Подземный гул direction (south) -->
+    <line x1="220" y1="260" x2="220" y2="400" stroke="#3a2a2a" stroke-width="2" stroke-dasharray="8,4" opacity="0.5"/>
+    <text x="225" y="395" fill="#5a3a3a" font-size="8">↓ подземный гул</text>
+    <text x="225" y="405" fill="#4a2a2a" font-size="7">(ритм 40-50 сек)</text>
+
+    <!-- Scale bar -->
+    <line x1="30" y1="420" x2="120" y2="420" stroke="#555" stroke-width="1"/>
+    <line x1="30" y1="416" x2="30" y2="424" stroke="#555" stroke-width="1"/>
+    <line x1="120" y1="416" x2="120" y2="424" stroke="#555" stroke-width="1"/>
+    <text x="75" y="415" text-anchor="middle" fill="#555" font-size="9">1 км</text>
+  </svg>
+</div>
+
+<!-- Tooltip element -->
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const tooltip = document.getElementById('tooltip');
+const markers = document.querySelectorAll('.marker');
+
+markers.forEach(m => {
+  m.addEventListener('mouseenter', e => {
+    const name = m.dataset.name;
+    const info = m.dataset.info;
+    if (!name) return;
+    tooltip.innerHTML = `<h3>${name}</h3>${info}`;
+    tooltip.classList.add('visible');
+  });
+  m.addEventListener('mousemove', e => {
+    let x = e.clientX + 15;
+    let y = e.clientY + 15;
+    if (x + 320 > window.innerWidth) x = e.clientX - 335;
+    if (y + 200 > window.innerHeight) y = e.clientY - 200;
+    tooltip.style.left = x + 'px';
+    tooltip.style.top = y + 'px';
+  });
+  m.addEventListener('mouseleave', () => {
+    tooltip.classList.remove('visible');
+  });
+});
+</script>
+
+</body>
+</html>
