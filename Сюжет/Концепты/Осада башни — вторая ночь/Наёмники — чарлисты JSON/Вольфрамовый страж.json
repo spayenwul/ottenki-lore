@@ -1,0 +1,83 @@
+{
+  "raceId": "kelminas",
+  "stage": 5,
+  "name": "Вольфрамовый страж",
+  "description": "Кел'Мин'Ас — демон с кристаллом Азмира во лбу, талант насыщать энергией предметы и структуры. Оружейник: вольфрамовые доспехи и защитные формации, серная закалка Домена Близнецов. Тело слабое, защита — в артефактах и формациях; медлителен.",
+  "ordoIgnis": false,
+  "stats": {
+    "strength": 40,
+    "dexterity": 30,
+    "endurance": 45,
+    "adaptation": 40,
+    "control": 110,
+    "assessment": 70
+  },
+  "elderRunes": [
+    { "name": "Грог", "level": 10, "cognition": 5 },
+    { "name": "Декар", "level": 10, "cognition": 4 },
+    { "name": "Срогх", "level": 10, "cognition": 3 }
+  ],
+  "middleRunes": [
+    { "name": "Крод", "level": 9, "cognition": 6 },
+    { "name": "Гейр", "level": 4, "cognition": 2 },
+    { "name": "Бейл", "level": 4, "cognition": 2 }
+  ],
+  "virtues": [
+    {
+      "name": "Формация-бастион",
+      "description": "Начертанная формация-вард над структурой или зоной (башней); настраивается: энергобарьер либо анти-ментальный купол.",
+      "level": 3,
+      "sourceRune": "Декар",
+      "selectedStats": ["control", "assessment"]
+    },
+    {
+      "name": "Вольфрамовый доспех",
+      "description": "Выращивает вольфрамовую броню на себе и союзниках, почти непробиваемую; чинит её насыщением энергии.",
+      "level": 3,
+      "sourceRune": "Крод",
+      "selectedStats": ["endurance", "control"]
+    },
+    {
+      "name": "Ментальный свод",
+      "description": "Слой формации, что держит память и волю под куполом — щит от внушения и эрозии разума.",
+      "level": 2,
+      "sourceRune": "Грог",
+      "selectedStats": ["control", "adaptation"],
+      "motherName": "Формация-бастион"
+    },
+    {
+      "name": "Серная закалка",
+      "description": "Закаляет броню и формацию против жара и холода.",
+      "level": 1,
+      "sourceRune": "Гейр",
+      "selectedStats": ["endurance"]
+    }
+  ],
+  "flaws": [
+    {
+      "name": "Якорь формации",
+      "description": "Купол привязан к якорям и поднимается не вдруг; сбей или сдвинь стража — защита слабеет. Сам медлителен.",
+      "level": 3,
+      "sourceRune": "Декар",
+      "selectedStats": ["dexterity"]
+    }
+  ],
+  "milestoneVirtues": [
+    {
+      "name": "Непреклонный купол",
+      "description": "Под куполом память и воля держатся даже против эрозии высшего круга.",
+      "level": 2,
+      "sourceRune": "Грог",
+      "milestoneSlot": 5,
+      "selectedStats": ["control", "adaptation"]
+    },
+    {
+      "name": "Отрицание металла",
+      "description": "Отражает и выталкивает металл, касающийся тела; пронзить его металлом крайне трудно.",
+      "level": 2,
+      "sourceRune": "Крод",
+      "milestoneSlot": 5,
+      "selectedStats": ["control", "endurance"]
+    }
+  ]
+}

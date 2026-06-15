@@ -1,0 +1,85 @@
+{
+  "raceId": "noktorn",
+  "stage": 5,
+  "name": "Шаррисс",
+  "description": "Нокторн-ритуалист, нанятый через Домен Близнецов. Призывает и переподчиняет тварей, бросая их в расход; ритуалы отдают серой домена. Хрупок телом — силён лишь сворой и волей.",
+  "ordoIgnis": false,
+  "stats": {
+    "strength": 45,
+    "dexterity": 60,
+    "endurance": 45,
+    "adaptation": 60,
+    "control": 120,
+    "assessment": 90
+  },
+  "elderRunes": [
+    { "name": "Грог", "level": 10, "cognition": 5 },
+    { "name": "Гнот", "level": 10, "cognition": 4 },
+    { "name": "Тхаа", "level": 10, "cognition": 3 },
+    { "name": "Декар", "level": 10, "cognition": 3 }
+  ],
+  "middleRunes": [
+    { "name": "Грайф", "level": 8, "cognition": 5 },
+    { "name": "Дарт", "level": 6, "cognition": 3 },
+    { "name": "Гейр", "level": 5, "cognition": 2 },
+    { "name": "Скайг", "level": 5, "cognition": 2 }
+  ],
+  "virtues": [
+    {
+      "name": "Серный погребальный костёр",
+      "description": "Сжигает подчинённую тварь в серной вспышке домена — урон по площади либо топливо для следующего заклинания.",
+      "level": 3,
+      "sourceRune": "Гейр",
+      "selectedStats": ["control", "assessment"]
+    },
+    {
+      "name": "Хор расхода",
+      "description": "Жертвует тварь из своры, обращая её распад в силу: лечит себя или питает ритуал.",
+      "level": 3,
+      "sourceRune": "Дарт",
+      "selectedStats": ["control", "energyEfficiency"]
+    },
+    {
+      "name": "Печать чужой воли",
+      "description": "Начертанная печать дёшево перезахватывает контроль над тварью ниже его круга.",
+      "level": 2,
+      "sourceRune": "Декар",
+      "selectedStats": ["control"],
+      "motherName": "Цепи подчинения"
+    },
+    {
+      "name": "Нюх ритуалиста",
+      "description": "Чует поблизости тварей и души, годные в свору.",
+      "level": 1,
+      "sourceRune": "Тхаа",
+      "selectedStats": ["assessment"]
+    }
+  ],
+  "flaws": [
+    {
+      "name": "Жажда расхода",
+      "description": "Тянет тратить тварей в расход; удержать свору целой надолго трудно. Под приказом «своих не трогать» его надо осаживать.",
+      "level": 3,
+      "sourceRune": "Грог",
+      "selectedStats": ["control"]
+    }
+  ],
+  "milestoneVirtues": [
+    {
+      "name": "Властный окрик",
+      "description": "Импульс почти-императивной команды по всей своре разом.",
+      "level": 2,
+      "sourceRune": "Грог",
+      "milestoneSlot": 5,
+      "selectedStats": ["control", "assessment"]
+    },
+    {
+      "name": "Свора без души",
+      "description": "Распространяет власть на бездушных тварей и мелких диких теней массой.",
+      "level": 2,
+      "sourceRune": "Грайф",
+      "milestoneSlot": 5,
+      "selectedStats": ["control", "adaptation"]
+    }
+  ]
+}
