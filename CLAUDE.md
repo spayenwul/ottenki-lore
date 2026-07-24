@@ -8,17 +8,23 @@ This is an Obsidian vault containing worldbuilding materials for a tabletop RPG 
 
 ## Vault Structure
 
-- **Root markdown files** - Core world lore documents:
+- **`Лор/`** - Core world lore documents:
   - `Космология.md` - Cosmology and fundamental laws (dual suns, asteroid belt as souls, gas giant Ferryn)
   - `Боги и высшие сущности.md` - Gods and higher beings (Lian, Seraphiel, Divine Beasts)
   - `История и мифология.md` - Timeline and historical epochs
   - `Геополитика.md` - Nations, races, and factions
   - `Магия и её традиции.md` - Magic systems and traditions by nation
-  - `Экономика мира.md` - Economy, resources (metal scarcity), and technologies
+  - `Школы магии/` - Magic schools by nation; `Экономика/` - economy model (metal scarcity, domain economics)
 
-- **`0 Алирн/`**, **`0 Виника/`**, **`0 Сильгаррон/`** - Different campaign/game arcs with session notes (`Игра XX` files)
+- **`Локации/`** - Locations: nations, the Karia Rift (`Провал/`), demon domains (`Домены/`), summoned worlds (`Мир Лэй Цзы/`)
+
+- **`0 Алирн/`**, **`0 Виника/`** - Separate campaign/game arcs with session notes (`Игра XX` files); **`0 игра/`** - tech docs for the Silgaron combat app (`E:\app-2-combat`)
 
 - **`0_Промты/`** - AI prompts and scene systems (including English translations like `Scenes_eng.md`)
+
+- **`Вложения/`** - Attachments: pasted images, maps, data files (xlsx/csv/JSON)
+
+- **`docs/`** - Technical materials (non-lore): generator specs and Python tools
 
 - **`Игромеханика/`** - Game mechanics:
   - `Ритуалистика фулл.md` - Full ritual system
@@ -28,7 +34,7 @@ This is an Obsidian vault containing worldbuilding materials for a tabletop RPG 
   - `Сила (формулы).md` - Power formulas
 
 - **`Персонажи/`** - All named entities:
-  - `Игроки/` - Player characters (Агнейр, Эрр'Кин, Дракх'Мегас, Софина и Соннет)
+  - `Игроки/` - Player characters (Агнейр, Эрр'Кин, Дракх'Мегас, Софина и Соннет, Громгайр, Кассиан)
   - `НПС/` - NPCs from gods to villagers
   - `Ведьмы/` - 18 witches anchored to concepts
   - `Демоны/` - 18 individual demons + subfolders Дом Ра, Семья Венрас
@@ -52,7 +58,7 @@ This is an Obsidian vault containing worldbuilding materials for a tabletop RPG 
 - All content is written in Russian
 - Uses Obsidian wiki-links syntax: `[[Page Name]]` and `[[Page Name|Display Text]]`
 - Many files contain YAML frontmatter for Obsidian metadata
-- Images are stored as `Pasted image YYYYMMDDHHMMSS.png` in root
+- Images are stored as `Pasted image YYYYMMDDHHMMSS.png` in `Вложения/`
 - The `.obsidian/` folder contains Obsidian configuration (do not modify)
 
 ## TL;DR Files
