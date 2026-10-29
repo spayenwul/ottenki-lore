@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "zemlya",
+  "project_id": "97425c13-c07c-42cc-8129-49a6f0be9931"
+}
