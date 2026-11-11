@@ -1,0 +1,139 @@
+{
+  "name": "Сэльма Кровь-и-Перо",
+  "stage": 2,
+  "description": "Поверенная Эш'Нары, Матриарха Клана Багровой Матери — скрепляет договоры, «глаза и слово». Та, кто смотрит на кровь холодно и раньше всех видит, что охота проиграна, — но не произносит это вслух: сама составила фальшивый меморандум о «перспективности следа». Пишет только кровяными чернилами. ⚠️ Рунный лист — игровой перевод школы Багровой Матери (Плетение) в рунную систему сайта; в лоре у людей рун нет.",
+  "stats": {
+    "strength": 30,
+    "dexterity": 42,
+    "endurance": 48,
+    "adaptation": 52,
+    "control": 68,
+    "assessment": 50
+  },
+  "elderRunes": [
+    { "name": "Гнот", "level": 10, "cognition": 6, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Кхес", "level": 10, "cognition": 5, "milestones": { "5": {}, "8": {}, "10": {} } }
+  ],
+  "middleRunes": [
+    { "name": "Бейл", "level": 7, "cognition": 5, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Дарт", "level": 6, "cognition": 4, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Крод", "level": 5, "cognition": 3, "milestones": { "5": {}, "8": {}, "10": {} } }
+  ],
+  "virtues": [
+    {
+      "name": "Правда Крови",
+      "description": "Читает клятву/договор по крови: знает, где слово сказано честно, а где нет. Ложь ощущается как трещина в структуре. Assessment снимает правду, control не даёт ей дрогнуть от того, что прочла.",
+      "level": 3,
+      "sourceRune": "Бейл",
+      "selectedStats": ["assessment", "control"]
+    },
+    {
+      "name": "Слово-печать",
+      "description": "Поверенная скрепляет договоры так, что «слово = обязывает»: её подпись держит обе стороны. Control кладёт печать, assessment следит, чтобы слово не разошлось с делом.",
+      "level": 3,
+      "sourceRune": "Гнот",
+      "selectedStats": ["control", "assessment"]
+    },
+    {
+      "name": "Живое Полотно",
+      "description": "Барьер из магической крови: союзника лечит, врага жжёт при касании. Ставит между «своими» и «чужими» — как всегда. Endurance держит полотно, integration вплетает в него живых.",
+      "level": 2,
+      "sourceRune": "Бейл",
+      "selectedStats": ["endurance", "integration"],
+      "motherName": "Правда Крови"
+    },
+    {
+      "name": "Хладнокровие",
+      "description": "Ни одна новость не сбивает её с ровного счёта: аппарат учил этому с детства. Control держит лицо и голос, adaptation принимает худшее без паузы.",
+      "level": 1,
+      "sourceRune": "Кхес",
+      "selectedStats": ["control", "adaptation"],
+      "motherName": "Слово-печать"
+    }
+  ],
+  "flaws": [
+    {
+      "name": "Не произносит правду",
+      "description": "Знает, что охота проиграна, и не говорит. Каждый непроизнесённый доклад ложится на control — и тот уже не весь её.",
+      "level": 3,
+      "sourceRune": "Гнот",
+      "selectedStats": ["control", "assessment"]
+    }
+  ],
+  "milestoneVirtues": [
+    {
+      "name": "Память печатей",
+      "description": "Грань Слова: помнит каждый скреплённый ею договор дословно — кто, кому, на какой крови. Assessment держит архив, control не даёт ему выцвести.",
+      "level": 2,
+      "sourceRune": "Гнот",
+      "milestoneSlot": 5,
+      "selectedStats": ["assessment", "control"],
+      "motherName": "Слово-печать"
+    },
+    {
+      "name": "Ровный счёт",
+      "description": "Грань Хладнокровия: в любой панике считает до десяти — про себя, ровно, без сбоя, — и только потом говорит. Control ведёт счёт, adaptation не сбивается на чужой ритм.",
+      "level": 2,
+      "sourceRune": "Кхес",
+      "milestoneSlot": 5,
+      "selectedStats": ["control", "adaptation"],
+      "motherName": "Хладнокровие"
+    },
+    {
+      "name": "Кровяные чернила",
+      "description": "Грань Правды: её доклады написаны кровью — и потому не врут ей самой. Каждый отчёт она подписывает как клятву, и assessment читает его, как читает чужие.",
+      "level": 2,
+      "sourceRune": "Бейл",
+      "milestoneSlot": 5,
+      "selectedStats": ["assessment", "control"],
+      "motherName": "Правда Крови"
+    }
+  ],
+  "spells": [
+    {
+      "name": "Правда Крови",
+      "description": "Читает клятву/договор по крови: знает, где слово сказано честно, а где нет. На человеке — по капле крови; на договоре — по подписи. Ложь ощущается как трещина в структуре.",
+      "baseDz": 6,
+      "duration": "минута чтения",
+      "distance": "касание; по капле крови — до 10 м",
+      "runes": [
+        { "name": "Гнот", "type": "elder", "effectDescription": "разум читает клятву сквозь слово", "isAppendage": false },
+        { "name": "Бейл", "type": "middle", "effectDescription": "кровь несёт правду — жизнь не умеет лгать о себе", "isAppendage": true },
+        { "name": "Акш", "type": "minor", "effectDescription": "проникает сквозь уклончивость и формулы вежливости", "isAppendage": true },
+        { "name": "Дозг", "type": "minor", "effectDescription": "давление в точку лжи — она выдаёт себя", "isAppendage": true }
+      ]
+    },
+    {
+      "name": "Кровавый Кнут",
+      "description": "Длинная алая линия хлещет и забирает часть жизни врага, возвращая её магу — рана на ней затягивается за счёт чужой.",
+      "baseDz": 7,
+      "duration": "мгновенно",
+      "distance": "до 15 м",
+      "runes": [
+        { "name": "Дарт", "type": "middle", "effectDescription": "рана и истощение — кнут отнимает жизнь", "isAppendage": false },
+        { "name": "Бейл", "type": "middle", "effectDescription": "забранная жизнь возвращается магу — чужая кровь лечит", "isAppendage": true },
+        { "name": "Онрт", "type": "minor", "effectDescription": "хлыст настигает выбранную цель", "isAppendage": true }
+      ]
+    },
+    {
+      "name": "Живое Полотно",
+      "description": "Барьер из магической крови: союзника лечит, врага жжёт при касании. Ставит между «своими» и «чужими» — как всегда.",
+      "baseDz": 5,
+      "duration": "до минуты",
+      "distance": "полотно до 10 м длиной",
+      "runes": [
+        { "name": "Бейл", "type": "middle", "effectDescription": "кровь-барьер живёт: лечит своих, жжёт чужих", "isAppendage": false },
+        { "name": "Крод", "type": "middle", "effectDescription": "полотно держит форму и не провисает", "isAppendage": true },
+        { "name": "Мекх", "type": "minor", "effectDescription": "щит у тела — полотно следует за её рукой", "isAppendage": true }
+      ]
+    }
+  ],
+  "ordoIgnis": false,
+  "skills": [],
+  "artifacts": [],
+  "customSections": [],
+  "customEquipmentSections": [],
+  "breakthroughs": [
+    { "toStage": 2, "runeName": "Гнот", "runeLevel": 10, "reserveGained": 7000, "cost": 11000 }
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "name": "Балрик Кровавый Щит",
+  "stage": 2,
+  "description": "Алый Страж Эш'Нары, бывший десятник стражи Красной Гавани. Солдат, у которого отняли город: в катастрофе погибли его семья и десяток, доспех треснул — и он его не чинит, «пока не найдёт, за кого чинить». Месть безадресна: цель — бездна, а не лицо. ⚠️ Рунный лист — игровой перевод школы Каменных Оков (Плетение) в рунную систему сайта; в лоре у людей рун нет.",
+  "stats": {
+    "strength": 68,
+    "dexterity": 32,
+    "endurance": 55,
+    "adaptation": 40,
+    "control": 70,
+    "assessment": 60
+  },
+  "elderRunes": [
+    { "name": "Грог", "level": 10, "cognition": 5, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Срогх", "level": 10, "cognition": 4, "milestones": { "5": {}, "8": {}, "10": {} } }
+  ],
+  "middleRunes": [
+    { "name": "Крод", "level": 10, "cognition": 5, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Бейл", "level": 8, "cognition": 4, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Гейр", "level": 7, "cognition": 3, "milestones": { "5": {}, "8": {}, "10": {} } }
+  ],
+  "virtues": [
+    {
+      "name": "Каменные Оковы на себе",
+      "description": "Школа Каменных Оков в исполнении стража: плиты камня ложатся на тело, как вторая стена. Endurance держит их вес, integration сшивает камень с плотью так, что броня не мешает дышать.",
+      "level": 3,
+      "sourceRune": "Крод",
+      "selectedStats": ["endurance", "integration"]
+    },
+    {
+      "name": "Стена десятка",
+      "description": "Он стоит между своими и угрозой — и пока он стоит, строй за ним жив. Endurance держит позицию, control не даёт страху и ярости сдвинуть его с места.",
+      "level": 3,
+      "sourceRune": "Грог",
+      "selectedStats": ["endurance", "control"]
+    },
+    {
+      "name": "Таран",
+      "description": "Разгон с каменной массой на плече: короткий чудовищный удар, ломающий строй, ворота и щитоносца вместе со щитом. Strength даёт массу, dexterity — точку приложения.",
+      "level": 2,
+      "sourceRune": "Гейр",
+      "selectedStats": ["strength", "dexterity"],
+      "motherName": "Стена десятка"
+    },
+    {
+      "name": "Последний рубеж",
+      "description": "Воля к жизни против распада: чем хуже бой, тем крепче он стоит. Endurance не сдаётся раньше тела, control держит разум, когда всё вокруг рушится.",
+      "level": 1,
+      "sourceRune": "Срогх",
+      "selectedStats": ["endurance", "control"],
+      "motherName": "Каменные Оковы на себе"
+    }
+  ],
+  "flaws": [
+    {
+      "name": "Трещина, которую не чинят",
+      "description": "Трещина в доспехе через нагрудник — след Красной Гавани. Он её не чинит «пока не найдёт, за кого чинить», и в месте трещины защита тоньше. Endurance терпит, worldResistance — место, где мир пролез внутрь.",
+      "level": 3,
+      "sourceRune": "Крод",
+      "selectedStats": ["endurance", "worldResistance"]
+    }
+  ],
+  "milestoneVirtues": [
+    {
+      "name": "Аура строя",
+      "description": "Грань Стены: рядом с ним свои держатся крепче — его ровное присутствие, как спина за спиной. Control навязывает спокойствие, endurance держит его долго.",
+      "level": 2,
+      "sourceRune": "Грог",
+      "milestoneSlot": 5,
+      "selectedStats": ["control", "endurance"],
+      "motherName": "Стена десятка"
+    },
+    {
+      "name": "Броня из плит",
+      "description": "Грань Каменных Оков: броня не только на нём — он ставит плиту между ударом и тем, кого прикрывает. Endurance держит плиту, integration — её связь с землёй.",
+      "level": 2,
+      "sourceRune": "Крод",
+      "milestoneSlot": 5,
+      "selectedStats": ["endurance", "integration"],
+      "motherName": "Каменные Оковы на себе"
+    }
+  ],
+  "spells": [
+    {
+      "name": "Каменная Броня",
+      "description": "Плиты камня ложатся на тело поверх доспеха, нарастая от плеч и груди. Держит удар, как вторая стена; каждая трещина в броне затягивается, пока он стоит.",
+      "baseDz": 6,
+      "duration": "пока держит концентрацию",
+      "distance": "на себе",
+      "runes": [
+        { "name": "Крод", "type": "middle", "effectDescription": "каменная структура плит", "isAppendage": false },
+        { "name": "Бейл", "type": "middle", "effectDescription": "плоть принимает броню как свою — трещины затягиваются", "isAppendage": true },
+        { "name": "Дозг", "type": "minor", "effectDescription": "уплотнение камня в местах удара", "isAppendage": true }
+      ]
+    },
+    {
+      "name": "Таран Оков",
+      "description": "Разгон с каменной массой на кулаке/плече: короткий чудовищный удар, ломающий строй, ворота и щитоносца вместе со щитом.",
+      "baseDz": 7,
+      "duration": "один удар",
+      "distance": "ближний бой + короткий разгон",
+      "runes": [
+        { "name": "Гейр", "type": "middle", "effectDescription": "ярость удара — разгон и мощь", "isAppendage": false },
+        { "name": "Крод", "type": "middle", "effectDescription": "каменная масса на точке удара", "isAppendage": true },
+        { "name": "Хорд", "type": "minor", "effectDescription": "+20% к мощи тарана", "isAppendage": true }
+      ]
+    },
+    {
+      "name": "Печать Земли",
+      "description": "Удар ладонью о землю: в зоне вокруг него каждый шаг стоит огромных усилий. Он в этой зоне — единственный, кто идёт как ходил.",
+      "baseDz": 5,
+      "duration": "до минуты",
+      "distance": "зона до 15 м вокруг",
+      "runes": [
+        { "name": "Крод", "type": "middle", "effectDescription": "земля под ладонью становится его продолжением", "isAppendage": false },
+        { "name": "Грог", "type": "elder", "effectDescription": "давление воли прижимает всех в зоне", "isAppendage": true },
+        { "name": "Турм", "type": "minor", "effectDescription": "тяжесть в зоне — шаги стоят огромных усилий", "isAppendage": true }
+      ]
+    }
+  ],
+  "ordoIgnis": false,
+  "skills": [],
+  "artifacts": [],
+  "customSections": [],
+  "customEquipmentSections": [],
+  "breakthroughs": [
+    { "toStage": 2, "runeName": "Грог", "runeLevel": 10, "reserveGained": 7000, "cost": 11000 }
+  ]
+}

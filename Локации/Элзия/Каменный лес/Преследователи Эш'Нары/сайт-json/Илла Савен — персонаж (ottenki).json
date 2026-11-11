@@ -1,0 +1,161 @@
+{
+  "name": "Илла Савен",
+  "stage": 3,
+  "description": "Маг-следопыт Третьего Департамента, ученица погибшего Тирана аль-Сулиха. Лучший следопыт группы преследователей у Каменного леса — и единственная, кто не может прочесть главный след (бездну) без чужой карианской линзы, но не признаётся в этом. Носит камень с места гибели Тирана на нитке под одеждой. ⚠️ Рунный лист — игровой перевод школы Алого Заката (Плетение) в рунную систему сайта; в лоре у людей рун нет.",
+  "stats": {
+    "strength": 42,
+    "dexterity": 55,
+    "endurance": 43,
+    "adaptation": 78,
+    "control": 66,
+    "assessment": 76
+  },
+  "elderRunes": [
+    { "name": "Тхаа", "level": 10, "cognition": 8, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Кхес", "level": 10, "cognition": 5, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Гнот", "level": 10, "cognition": 3, "milestones": { "5": {}, "8": {}, "10": {} } }
+  ],
+  "middleRunes": [
+    { "name": "Шейр", "level": 7, "cognition": 6, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Гейр", "level": 6, "cognition": 5, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Скайг", "level": 5, "cognition": 3, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Грайф", "level": 4, "cognition": 4, "milestones": { "5": {}, "8": {}, "10": {} } }
+  ],
+  "virtues": [
+    {
+      "name": "Читающая след",
+      "description": "Пространственное чутьё сверх нормы Залида: читает не «границы территории», а «где кто стоял». Assessment снимает картину места, adaptation достраивает то, чего уже не видно.",
+      "level": 3,
+      "sourceRune": "Тхаа",
+      "selectedStats": ["assessment", "adaptation"]
+    },
+    {
+      "name": "Закат-поступь",
+      "description": "Боевая школа Алого Заката в походном исполнении: быстрая, точная, бьёт от следа и уходит в сумерки. Dexterity ведёт клинки, assessment выцеливает по следу.",
+      "level": 3,
+      "sourceRune": "Гейр",
+      "selectedStats": ["dexterity", "assessment"]
+    },
+    {
+      "name": "Не светить даром",
+      "description": "Материнский урок: не показывать дар тем, кто его не заслужил. Скрытность, тихий шаг, чужие глаза скользят мимо. Assessment контролирует, что видят другие; worldResistance — что её не видят так просто.",
+      "level": 2,
+      "sourceRune": "Скайг",
+      "selectedStats": ["assessment", "worldResistance"],
+      "motherName": "Читающая след"
+    },
+    {
+      "name": "Терпение дюн",
+      "description": "Следопыт умеет ждать: часами неподвижно у следа, сутками — на посту. Endurance держит тело, control не даёт желанию поторопить след.",
+      "level": 1,
+      "sourceRune": "Кхес",
+      "selectedStats": ["endurance", "control"],
+      "motherName": "Читающая след"
+    }
+  ],
+  "flaws": [
+    {
+      "name": "Бездну читает чужой линзой",
+      "description": "Главный след её жизни — бездна — не даётся её собственному глазу: только карианская линза Крейна. И она скорее ошибётся, чем признается, что не умеет сама.",
+      "level": 3,
+      "sourceRune": "Тхаа",
+      "selectedStats": ["assessment", "worldResistance"]
+    }
+  ],
+  "milestoneVirtues": [
+    {
+      "name": "След по воздуху",
+      "description": "Грань Читающей: читает не только землю — запах, тепло, смещённый воздух; кто прошёл и как давно, даже там, где ступали легко. Assessment различает, adaptation отсеивает ветер.",
+      "level": 2,
+      "sourceRune": "Тхаа",
+      "milestoneSlot": 5,
+      "selectedStats": ["assessment", "adaptation"],
+      "motherName": "Читающая след"
+    },
+    {
+      "name": "Запах Заката",
+      "description": "Грань Читающей: бездна-шлейф Миланиды, различимый только через линзу, — она читает его как запах алого заката, который не спутать. Assessment держит сигнатуру, adaptation настраивается на её возвращение.",
+      "level": 2,
+      "sourceRune": "Тхаа",
+      "milestoneSlot": 8,
+      "selectedStats": ["assessment", "adaptation"],
+      "motherName": "Читающая след"
+    },
+    {
+      "name": "Ровный шаг",
+      "description": "Грань Терпения: в долгом переходе не сбивается с темпа — и время не съедает её внимания. Endurance ровняет дыхание, control — ритм.",
+      "level": 2,
+      "sourceRune": "Кхес",
+      "milestoneSlot": 5,
+      "selectedStats": ["endurance", "control"],
+      "motherName": "Терпение дюн"
+    },
+    {
+      "name": "Ветер-гончая",
+      "description": "Грань Читающей: посылает ветер по следу — и тот приносит назад, кто там и сколько их. Assessment держит нить ветра, adaptation различает в ней след.",
+      "level": 2,
+      "sourceRune": "Шейр",
+      "milestoneSlot": 5,
+      "selectedStats": ["assessment", "adaptation"],
+      "motherName": "Читающая след"
+    },
+    {
+      "name": "Грань Горизонта",
+      "description": "Грань Закат-поступи: режущая кромка алой волны, сжатая в один клинок, — для засады и мгновенного боя. Dexterity ведёт грань, assessment выцеливает слабое место.",
+      "level": 2,
+      "sourceRune": "Гейр",
+      "milestoneSlot": 5,
+      "selectedStats": ["dexterity", "assessment"],
+      "motherName": "Закат-поступь"
+    }
+  ],
+  "spells": [
+    {
+      "name": "След Заката",
+      "description": "Восстанавливает картину места: кто здесь стоял, откуда пришёл, куда ушёл, сколько их было. Работает по земле, траве, камню; свежие следы читаются подробнее. На бездну-след смотреть нельзя — не прочтёт.",
+      "baseDz": 9,
+      "duration": "до минуты чтения",
+      "distance": "место под ногами и до 50 м вокруг",
+      "runes": [
+        { "name": "Тхаа", "type": "elder", "effectDescription": "сенсорное слияние с местом — читает, кто здесь был", "isAppendage": false },
+        { "name": "Шейр", "type": "middle", "effectDescription": "ветер несёт остаточный запах и тепло следа", "isAppendage": true },
+        { "name": "Кхес", "type": "elder", "effectDescription": "восстанавливает последовательность событий во времени", "isAppendage": true },
+        { "name": "Дозг", "type": "minor", "effectDescription": "концентрация на одной точке следа — глубже в детали", "isAppendage": true }
+      ]
+    },
+    {
+      "name": "Клинки Заката",
+      "description": "Десятки алых магических лезвий обрушиваются на зону, определённую магом. Наводит по следу — даже в сумерках и сквозь подлесок.",
+      "baseDz": 10,
+      "duration": "залп, мгновенно",
+      "distance": "зона до 30 м поперёк",
+      "runes": [
+        { "name": "Гейр", "type": "middle", "effectDescription": "огонь заката — алые лезвия", "isAppendage": false },
+        { "name": "Тхаа", "type": "elder", "effectDescription": "наведение по живому и по следу", "isAppendage": true },
+        { "name": "Лекс", "type": "minor", "effectDescription": "множественные источники — десятки клинков", "isAppendage": true },
+        { "name": "Онрт", "type": "minor", "effectDescription": "клинки преследуют выбранные цели", "isAppendage": true }
+      ]
+    },
+    {
+      "name": "Горизонт Ярости",
+      "description": "Алая волна разрушения катится по земле, сметая строй. Её крайнее средство: волна не разбирает, кто стоял на пути.",
+      "baseDz": 8,
+      "duration": "одна волна",
+      "distance": "до 40 м вперёд",
+      "runes": [
+        { "name": "Гейр", "type": "middle", "effectDescription": "огонь заката — тело волны", "isAppendage": false },
+        { "name": "Шейр", "type": "middle", "effectDescription": "воздух гонит волну по земле", "isAppendage": true },
+        { "name": "Хорд", "type": "minor", "effectDescription": "+20% к мощи волны", "isAppendage": true }
+      ]
+    }
+  ],
+  "ordoIgnis": false,
+  "skills": [],
+  "artifacts": [],
+  "customSections": [],
+  "customEquipmentSections": [],
+  "breakthroughs": [
+    { "toStage": 2, "runeName": "Тхаа", "runeLevel": 10, "reserveGained": 7000, "cost": 11000 },
+    { "toStage": 3, "runeName": "Кхес", "runeLevel": 10, "reserveGained": 4000, "cost": 13000 }
+  ]
+}

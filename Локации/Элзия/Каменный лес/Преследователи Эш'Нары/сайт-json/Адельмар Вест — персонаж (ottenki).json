@@ -1,0 +1,153 @@
+{
+  "name": "Адельмар Вест",
+  "stage": 3,
+  "description": "Магистр-инквизитор Третьего Департамента Высшей Палаты Справедливости Элзии, ученик погибшей Вальены Хор. Человек, выстроивший себя из процедуры, — и процедура умерла под ним: дослуживает мёртвый приказ, потому что иначе «останется толпа с правом на месть». В группе преследователей у Каменного леса — формальный старший и моральный центр. ⚠️ Рунный лист — игровой перевод школы Близнецов Света (Плетение) в рунную систему сайта; в лоре у людей рун нет.",
+  "stats": {
+    "strength": 38,
+    "dexterity": 50,
+    "endurance": 57,
+    "adaptation": 68,
+    "control": 86,
+    "assessment": 66
+  },
+  "elderRunes": [
+    { "name": "Гнот", "level": 10, "cognition": 7, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Кхес", "level": 10, "cognition": 5, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Трейг", "level": 10, "cognition": 3, "milestones": { "5": {}, "8": {}, "10": {} } }
+  ],
+  "middleRunes": [
+    { "name": "Секл", "level": 8, "cognition": 6, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Бейл", "level": 6, "cognition": 5, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Шейр", "level": 5, "cognition": 3, "milestones": { "5": {}, "8": {}, "10": {} } },
+    { "name": "Крод", "level": 4, "cognition": 2, "milestones": { "5": {}, "8": {}, "10": {} } }
+  ],
+  "virtues": [
+    {
+      "name": "Свет-приговор (Кара Фобоса)",
+      "description": "Световая деструкция Фобоса: золотистый луч, что выжигает «по форме» — не шире, не дольше, чем назначено. Control держит прицел и мощь, assessment читает вину и меру.",
+      "level": 3,
+      "sourceRune": "Секл",
+      "selectedStats": ["control", "assessment"]
+    },
+    {
+      "name": "Форма превыше всего",
+      "description": "Дознание как процедура: читает людей, документы и место происшествия системой, а не вдохновением. Adaptation схватывает новое дело, assessment укладывает его в форму.",
+      "level": 3,
+      "sourceRune": "Гнот",
+      "selectedStats": ["adaptation", "assessment"]
+    },
+    {
+      "name": "Исцеляющий Деймос",
+      "description": "Серебристая половина Близнецов: свет Деймоса, что заживляет и стабилизирует раненых. Endurance принимает чужую боль, integration проводит свет в чужое тело.",
+      "level": 2,
+      "sourceRune": "Бейл",
+      "selectedStats": ["endurance", "integration"],
+      "motherName": "Форма превыше всего"
+    },
+    {
+      "name": "Стойкость пустыни",
+      "description": "Степная закалка: мало воды, много солнца, долгие переходы. Endurance держит тело, adaptation не удивляется жаре и миражам.",
+      "level": 1,
+      "sourceRune": "Трейг",
+      "selectedStats": ["endurance", "adaptation"],
+      "motherName": "Форма превыше всего"
+    }
+  ],
+  "flaws": [
+    {
+      "name": "Дослуживает мёртвый приказ",
+      "description": "Государство, выдавшее мандат, фактически мертво, но он не может отложить форму: идёт по букве приказа, которого больше некому отменить. Control тратится на удержание порядка там, где нужна гибкость.",
+      "level": 3,
+      "sourceRune": "Гнот",
+      "selectedStats": ["control", "assessment"]
+    }
+  ],
+  "milestoneVirtues": [
+    {
+      "name": "Читающий волю",
+      "description": "Грань Формы: в допросе слышит не слова, а то, чего человек хочет — и чего боится. Assessment снимает показания, adaptation подбирает следующий вопрос.",
+      "level": 2,
+      "sourceRune": "Гнот",
+      "milestoneSlot": 5,
+      "selectedStats": ["assessment", "adaptation"],
+      "motherName": "Форма превыше всего"
+    },
+    {
+      "name": "Ритм дознания",
+      "description": "Грань Формы: темп допроса — его инструмент. Ускоряет и замедляет вопросы так, что ложь сама теряет шаг. Control ведёт ритм, assessment ловит сбой.",
+      "level": 2,
+      "sourceRune": "Кхес",
+      "milestoneSlot": 5,
+      "selectedStats": ["control", "assessment"],
+      "motherName": "Форма превыше всего"
+    },
+    {
+      "name": "Вспышка Кары",
+      "description": "Грань Кары: короткий слепящий залп Фобоса — не убить, а остановить и ослепить. Control сжимает свет в мгновение, assessment выцеливает глаза и руки.",
+      "level": 2,
+      "sourceRune": "Секл",
+      "milestoneSlot": 5,
+      "selectedStats": ["control", "assessment"],
+      "motherName": "Свет-приговор (Кара Фобоса)"
+    },
+    {
+      "name": "Свет-повязка",
+      "description": "Грань Деймоса: свет, что встаёт над раной как повязка, — останавливает кровь и держит раненого в сознании. Endurance тянет чужую рану, control не даёт свету разлиться.",
+      "level": 2,
+      "sourceRune": "Бейл",
+      "milestoneSlot": 5,
+      "selectedStats": ["endurance", "control"],
+      "motherName": "Исцеляющий Деймос"
+    }
+  ],
+  "spells": [
+    {
+      "name": "Кара Фобоса",
+      "description": "Золотистый луч-приговор Фобоса: бьёт на расстояние взгляда, прожигает и отбрасывает. «По форме» — ровно туда и ровно столько, сколько назначил инквизитор.",
+      "baseDz": 10,
+      "duration": "мгновенно, луч 2–3 секунды",
+      "distance": "до 40 м",
+      "runes": [
+        { "name": "Секл", "type": "middle", "effectDescription": "свет Фобоса — деструктивное излучение", "isAppendage": false },
+        { "name": "Гнот", "type": "elder", "effectDescription": "воля ведёт прицел — луч идёт по назначению", "isAppendage": true },
+        { "name": "Акш", "type": "minor", "effectDescription": "мелкодисперсность — прожигает сквозь лёгкую защиту", "isAppendage": true },
+        { "name": "Хорд", "type": "minor", "effectDescription": "+20% к мощи луча", "isAppendage": true }
+      ]
+    },
+    {
+      "name": "Сияние Близнецов",
+      "description": "Два пучка одновременно: золотистый Фобоса разит врага, серебристый Деймоса в тот же миг исцеляет союзника. Симметрия — его вера.",
+      "baseDz": 9,
+      "duration": "мгновенно",
+      "distance": "до 30 м",
+      "runes": [
+        { "name": "Секл", "type": "middle", "effectDescription": "свет Фобоса — атакующая половина", "isAppendage": false },
+        { "name": "Бейл", "type": "middle", "effectDescription": "жизнь Деймоса — исцеляющая половина", "isAppendage": true },
+        { "name": "Лекс", "type": "minor", "effectDescription": "два источника — два луча из одного жеста", "isAppendage": true },
+        { "name": "Эрк", "type": "minor", "effectDescription": "лучи огибают союзников — дружественный огонь отключён", "isAppendage": true }
+      ]
+    },
+    {
+      "name": "Щит Фобоса",
+      "description": "Барьер из энергии разрушения: не отражает удар, а поглощает его — и становится крепче с каждым принятым ударом.",
+      "baseDz": 7,
+      "duration": "до минуты",
+      "distance": "на себе и в двух шагах",
+      "runes": [
+        { "name": "Секл", "type": "middle", "effectDescription": "световая основа щита", "isAppendage": false },
+        { "name": "Шейр", "type": "middle", "effectDescription": "воздух уплотняется в преграду", "isAppendage": true },
+        { "name": "Крод", "type": "middle", "effectDescription": "структура барьера держит форму", "isAppendage": true },
+        { "name": "Лансх", "type": "minor", "effectDescription": "защита ×5 — стоит на месте, не двигается", "isAppendage": true }
+      ]
+    }
+  ],
+  "ordoIgnis": false,
+  "skills": [],
+  "artifacts": [],
+  "customSections": [],
+  "customEquipmentSections": [],
+  "breakthroughs": [
+    { "toStage": 2, "runeName": "Гнот", "runeLevel": 10, "reserveGained": 7000, "cost": 11000 },
+    { "toStage": 3, "runeName": "Кхес", "runeLevel": 10, "reserveGained": 4000, "cost": 13000 }
+  ]
+}
