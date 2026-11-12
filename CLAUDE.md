@@ -60,6 +60,7 @@ This is an Obsidian vault containing worldbuilding materials for a tabletop RPG 
 - Many files contain YAML frontmatter for Obsidian metadata
 - Images are stored as `Pasted image YYYYMMDDHHMMSS.png` in `Вложения/`
 - The `.obsidian/` folder contains Obsidian configuration (do not modify)
+- **Before transcribing a game recording** — read `★ Справочник имён (ASR).md` at the vault root first. It is the source of canonical name spellings and known ASR variants; do not invent spellings outside it (mark uncertain names with ⚠ and add them to the "Хвосты" table).
 
 ## TL;DR Files
 
